@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build & Test MovieDB App
+    name: Build & Test pokedex App
     runs-on: ubuntu-latest
 
     steps:
