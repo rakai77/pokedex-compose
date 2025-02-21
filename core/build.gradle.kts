@@ -43,6 +43,7 @@ dependencies {
     api(libs.bundles.koin)
     api(libs.bundles.datastore)
     api(libs.bundles.paging)
+    api(libs.bundles.networking)
 
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
