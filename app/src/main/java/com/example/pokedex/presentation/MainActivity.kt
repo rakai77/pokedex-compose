@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pokedex.presentation.route.AppRoute
+import com.example.pokedex.presentation.screen.detail.DetailScreen
 import com.example.pokedex.presentation.screen.home.HomeScreen
 import com.example.pokedex.presentation.theme.PokedexTheme
 import com.google.gson.Gson
@@ -31,15 +32,30 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             PokedexTheme {
+                val navController = rememberNavController()
                 NavHost(
-                    navController = rememberNavController(),
+                    navController = navController,
                     startDestination = AppRoute.Home.route
                 ) {
                     composable(
                         route = AppRoute.Home.route
                     ) {
                         HomeScreen(
-                            onNavigate = {}
+                            onNavigate = { pokemonId ->
+                                navController.navigate(AppRoute.Detail.route.replace("{pokemonId}", pokemonId))
+                            }
+                        )
+                    }
+                    composable(
+                        route = AppRoute.Detail.route,
+                        arguments = listOf(
+                            navArgument("pokemonId") { type = NavType.StringType }
+                        )
+                    ) { backStackEntry ->
+                        val pokemonId = backStackEntry.arguments?.getString("pokemonId").orEmpty()
+                        DetailScreen(
+                            pokemonId = pokemonId,
+                            onBack = { navController.popBackStack() }
                         )
                     }
                 }

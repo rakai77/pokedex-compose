@@ -46,7 +46,7 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    onNavigate: (route: Any) -> Unit
+    onNavigate: (String) -> Unit
 ) {
 
     val viewModel: HomeViewModel = koinViewModel()
@@ -93,7 +93,9 @@ fun HomeScreen(
                             PokemonCard(
                                 pokemon = data.results[index],
                                 url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png",
-                                onClick = {}
+                                onClick = {
+                                    onNavigate.invoke("${index + 1}")
+                                }
                             )
                         }
                     }
